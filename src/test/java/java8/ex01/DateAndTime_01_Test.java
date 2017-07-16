@@ -2,6 +2,10 @@ package java8.ex01;
 
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -18,13 +22,16 @@ public class DateAndTime_01_Test {
     public void test_date() {
 
         // TODO modifier les paramètres pour que le test soit passant
-        Date date = new Date(0, 0, 0, 0,0,0);
-
+    	Date date = new Date(2017-1900,2,24);
+    	date.setHours(01);
+    	date.setMinutes(02);
+    	date.setSeconds(03);
         assertThat(date.toString(), is("Fri Mar 24 01:02:03 CET 2017"));
 
         // une date est mutable... :-(
         // TODO modifier le jour de la date pour que le test soit passant
-
+        date.setMonth(2);
+        date.setDate(25);
         assertThat(date.toString(), is("Sat Mar 25 01:02:03 CET 2017"));
     }
 
@@ -33,14 +40,15 @@ public class DateAndTime_01_Test {
     @Test
     public void test_calendar() throws Exception {
         Calendar calendar = Calendar.getInstance();
-
+        
         // TODO modifier l'objet calendar pour que le test soit passant
-
+        calendar.set(2017, 2, 24, 01, 02,03);
         assertThat(calendar.getTime().toString(), is("Fri Mar 24 01:02:03 CET 2017"));
-
+        	
         // calendar est mutable... :-(
         // TODO modifier l'objet calendar pour que le test soit passant
-
+        calendar.set(2017, 2, 25, 01, 02, 03);
+        
         assertThat(calendar.getTime().toString(), is("Sat Mar 25 01:02:03 CET 2017"));
     }
 
