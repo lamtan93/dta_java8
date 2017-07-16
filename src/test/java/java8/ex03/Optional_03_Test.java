@@ -2,9 +2,11 @@ package java8.ex03;
 
 import java8.data.Account;
 import java8.data.Person;
+
 import org.junit.Test;
 
 import java.util.Optional;
+import java.util.function.BiConsumer;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -44,6 +46,8 @@ public class Optional_03_Test {
         Account account = getAccountNull();
         Optional<Account> accOpt = Optional.ofNullable(account);
         // TODO A l'aide de la méthode map récupérer le prénom (account -> person -> firstname)
+        String prenom = accOpt.map(Account::getOwner).map(Person::getFirstname).orElseThrow(()->new GoodException());
+        System.out.println(prenom);
         // TODO Utiliser la méthode orElseThrow pour déclencher l'exception GoodException si non trouvé
         // accOpt.map...
     }
@@ -53,6 +57,8 @@ public class Optional_03_Test {
         Account account = getAccountWithPersonNull();
         Optional<Account> accOpt = Optional.ofNullable(account);
         // TODO A l'aide de la méthode map récupérer le prénom (account -> person -> firstname)
+        String prenom = accOpt.map(Account::getOwner).map(Person::getFirstname).orElseThrow(()->new GoodException());
+  
         // TODO Utiliser la méthode orElseThrow pour déclencher l'exception GoodException si non trouvé
         // accOpt.map...
     }
@@ -64,6 +70,8 @@ public class Optional_03_Test {
         // TODO A l'aide de la méthode map récupérer le prénom (account -> person -> firstname)
         // TODO Utiliser la méthode orElseThrow pour déclencher l'exception GoodException si non trouvé
         // accOpt.map...
+        String prenom = accOpt.map(Account::getOwner).map(Person::getFirstname).orElseThrow(()->new GoodException());
+
     }
 
     @Test
@@ -73,5 +81,7 @@ public class Optional_03_Test {
         // TODO A l'aide de la méthode map récupérer le prénom (account -> person -> firstname)
         // TODO Utiliser la méthode ifPresent pour valider que le prénom est "A"
         // accOpt.map...
+        accOpt.map(a->a.getOwner().getFirstname());
+        accOpt.ifPresent(a->{assertThat(a.getOwner().getFirstname(),is("A"));});
     }
 }
