@@ -2,12 +2,17 @@ package java8.ex05;
 
 import org.junit.Test;
 
+import java8.data.domain.Customer;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
@@ -69,11 +74,14 @@ public class Stream_05_Test {
 
         // TODO utiliser la méthode java.nio.file.Files.lines pour créer un stream de lignes du fichier naissances_depuis_1900.csv
         // Le bloc try(...) permet de fermer (close()) le stream après utilisation
-        try (Stream<String> lines = null) {
-
+        try (Stream<String> lines = Files.lines(Paths.get(NAISSANCES_DEPUIS_1900_CSV))) {
+        
             // TODO construire une MAP (clé = année de naissance, valeur = somme des nombres de naissance de l'année)
-            Map<String, Integer> result = null;
-
+            Map<String, Integer> result = lines
+            		.skip(1)
+            		.map(line->line.split(";"))
+            		.map(line -> new Naissance(line[1],line[2],Integer.parseInt(line[3])))
+            		.collect(Collectors.toMap(Naissance::getAnnee, Naissance::getNombre,(p1,p2)->p1+p2));
 
             assertThat(result.get("2015"), is(8097));
             assertThat(result.get("1900"), is(5130));
@@ -85,10 +93,11 @@ public class Stream_05_Test {
 
         // TODO utiliser la méthode java.nio.file.Files.lines pour créer un stream de lignes du fichier naissances_depuis_1900.csv
         // Le bloc try(...) permet de fermer (close()) le stream après utilisation
-        try (Stream<String> lines = null) {
+    	try (Stream<String> lines = Files.lines(Paths.get(NAISSANCES_DEPUIS_1900_CSV))) {
 
             // TODO trouver l'année où il va eu le plus de nombre de naissance
             Optional<Naissance> result = null;
+            		
 
 
             assertThat(result.get().getNombre(), is(48));
