@@ -84,7 +84,7 @@ public class Lambda_04_Test {
 
 		personFuncCollection
 		// TODO filtrer, ne garder uniquement que les personnes ayant un age > 50
-		.filter((person)->person.getAge()>50?true:false)
+		.filter((person)->person.getAge()>50)
 		// TODO transformer la liste de personnes en liste de comptes. Un compte a par défaut un solde à 1000.
 		.map(m->{
 			Account a = new Account();
@@ -114,7 +114,7 @@ public class Lambda_04_Test {
 		// TODO filtrer, ne garder uniquement que les personnes ayant un age >
 		// 50
 		// ??? filterByAge = ???;
-		GenericPredicate<Person> filterByAge = person->person.getAge()>50?true:false;
+		GenericPredicate<Person> filterByAge = person->person.getAge()>50;
 		// TODO créer un variable mapToAccount de type GenericMapper
 		// TODO transformer la liste de personnes en liste de comptes. Un compte
 		// a par défaut un solde à 1000.
